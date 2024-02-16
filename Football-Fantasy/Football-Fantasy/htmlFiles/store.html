@@ -1,0 +1,323 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Shop</title>
+    <link rel="icon" type="image/x-icon" href="https://s28.picofile.com/file/8465721992/Fantasy_football_image.png" style="max-width : 1% ;">
+    <meta http-equiv="Content-Type" content="text/html; charset=windows-1252" />
+    <!--[if IE 6]>
+    <link rel="stylesheet" type="text/css" href="iecss.css" />
+    <![endif]-->
+</head>
+<style>
+    *{
+        top:0;
+        margin: 0;
+        padding: 0;
+    }
+    body{
+        background-image: url(https://s28.picofile.com/file/8466182476/7.jpg);
+        background-size:cover;
+        overflow: hidden;
+    }
+    .nav h1 ,ul{
+        display:inline ;
+    }
+    .nav{
+        width: auto;
+        height: auto;
+        text-align: center;
+        background-image: url(https://s29.picofile.com/file/8466173284/dashbordNavImage.jpg);
+        position: relative;
+        background-repeat: no-repeat;
+        background-size: cover;
+        color: azure;
+        border-bottom: gray ;
+    }
+    .nav h1{
+        margin-left:2%;
+        font-family: monospace;
+        font-size: 300%;
+        float: left;
+    }
+    ul {
+        background-color: red;
+        width: 40%;
+        height:10%;
+        list-style-type: none;
+        overflow: hidden;
+        background-color: gray;
+        border-color: #333333;
+    }
+
+    li {
+        float: right;
+    }
+    li a {
+        font-size: 20px;
+        display: block;
+        color: white;
+        text-align: center;
+        padding: 17px;
+        text-decoration: none;
+    }
+    li a:hover {
+        background-color: blueviolet;
+    }
+
+    body{
+        background-color: #051839;
+        padding:0;
+        font-family:Arial, Helvetica, sans-serif;
+        font-size:11px;
+        margin:0px auto auto auto;
+        color:#000;
+    }
+    #main_container{
+        width:1000px;
+        height:auto;
+        margin:auto;
+        padding:0px;
+        background-color:#FFFFFF;
+    }
+    #main_content{
+        clear:both;
+    }
+    .product_title{
+        font-size: 15px;
+        color:#ff8a00;
+        padding:5px 0 5px 0;
+        font-weight:bold;
+    }
+    .product_title p{
+        text-decoration:none;
+        color:#ff8a00;
+        padding:5px 0 5px 0;
+        font-weight:bold;
+    }
+    .product_img{
+        height: 80px;
+        padding:10px 0 5px 0;
+    }
+    .prod_price{
+        font-size: 15px;
+        color: #ff8a00;
+        padding:5px 0 5px 0;
+    }
+    .center_content{
+        width:1000px;
+        float:left;
+        padding:5px 10px 5px 60px;
+    }
+    .prod_box{
+        width:250px;
+        height:auto;
+        float:left;
+        padding:15px 10px 10px 20px;
+    }
+    .center_prod_box{
+        background-color: #000;
+        width:230px;
+        height: auto;
+        float:left;
+        text-align:center;
+        padding:0px;
+        margin:0px;
+        border:3px #ffd700 solid;
+    }
+
+    .prod_details_tab{
+        width:173px;
+        height:31px;
+        float:left;
+        margin:3px 0 0 0;
+    }
+    img.left_bt{
+        float:left;
+        padding:6px 0 0 6px;
+    }
+
+    button.prod_buy{
+        cursor: pointer;
+        width:225px;
+        height:24px;
+        display:block;
+        float:left;
+        background-color: #ff8a00;
+        border:2px #000 solid;
+        background-size: cover;
+        margin:2px 0 0 5px;
+        text-align:center;
+        font-size: 13px;
+        font-weight: 600;
+        line-height:24px;
+        text-decoration:none;
+        color: #006600;
+    }
+    button.prod_buy:hover {
+        background-color: #006600;
+        color: #ff8a00;
+        border:2px #000 solid;
+    }
+    img {
+        width: 80px;
+        height: auto;
+    }
+</style>
+<body id="body">
+<div class="nav">
+    <h1>Football Fantasy</h1>
+    <ul>
+        <li><a href="http://localhost:5292/contactUs">Contact Us</a></li>
+        <li><a href="https://www.skysports.com/football/news">News</a></li>
+        <li><a href="http://localhost:5292/dashbord">Profile</a></li>
+    </ul>
+</div>
+<br>
+
+<div id="main_container">
+
+    <div class="center_content">
+        <div class="prod_box">
+            <div class="center_prod_box">
+                <div class="product_title"><p>10 dollars</p></div>
+                <div class="product_img"><p><img src="https://s28.picofile.com/file/8466262684/dollors1.jpg" alt="" /></p></div>
+                <div class="prod_price"><span class="price">99$</span></div>
+            </div>
+            <div class="prod_details_tab"> <button onclick="addMoney(10)" class="prod_buy">Buy</button> </div>
+        </div>
+        <div class="prod_box">
+            <div class="center_prod_box">
+                <div class="product_title"><p>25 dollars</p></div>
+                <div class="product_img"><p><img src="https://s28.picofile.com/file/8466262692/dollors2.jpg" /></p></div>
+                <div class="prod_price"><span class="price">229$</span></div>
+            </div>
+            <div class="prod_details_tab"> <button onclick="addMoney(25)" class="prod_buy">Buy</button> </div>
+        </div>
+        <div class="prod_box">
+            <div class="center_prod_box">
+                <div class="product_title"><p>40 dollars</p></div>
+                <div class="product_img"><p><img src="https://s29.picofile.com/file/8466262700/dollors3.jpg" alt=""  /></p></div>
+                <div class="prod_price"><span class="price">349$</span></div>
+            </div>
+            <div class="prod_details_tab"> <button onclick="addMoney(40)" class="prod_buy">Buy</button> </div>
+        </div>
+        <div class="prod_box">
+            <div class="center_prod_box">
+                <div class="product_title"><p>65 dollars</p></div>
+                <div class="product_img"><p><img src="https://s28.picofile.com/file/8466262718/dollors4.jpg" alt="" /></p></div>
+                <div class="prod_price"><span class="price">559$</span></div>
+            </div>
+            <div class="prod_details_tab"> <button onclick="addMoney(65)" class="prod_buy">Buy</button>  </div>
+        </div>
+        <div class="prod_box">
+            <div class="center_prod_box">
+                <div class="product_title"><p>80 dollars</p></div>
+                <div class="product_img"><p><img src="https://s29.picofile.com/file/8466262726/dollors5.jpg" alt="" /></p></div>
+                <div class="prod_price"><span class="price">689$</span></div>
+            </div>
+            <div class="prod_details_tab"> <button onclick="addMoney(80)" class="prod_buy">Buy</button> </div>
+        </div>
+        <div class="prod_box">
+            <div class="center_prod_box">
+                <div class="product_title"><p>100 dollars</p></div>
+                <div class="product_img"><p><img src="https://s29.picofile.com/file/8466262742/dollors6.jpg" alt=""/></p></div>
+                <div class="prod_price"><span class="price">849$</span></div>
+            </div>
+            <div class="prod_details_tab"> <button onclick="addMoney(100)" class="prod_buy">Buy</button> </div>
+        </div>
+        <div class="prod_box">
+            <div class="center_prod_box">
+                <div class="product_title"><p>Silver Shirt</p></div>
+                <div class="product_img"><p><img src="https://s28.picofile.com/file/8466220226/silverShirt1.png" alt="" style="height: 108px;" /></p></div>
+                <div class="prod_price"><span class="price">5999$</span></div>
+            </div>
+            <div class="prod_details_tab"> <button onclick="addShirt(1)" class="prod_buy">Buy</button> </div>
+        </div>
+        <div class="prod_box">
+            <div class="center_prod_box">
+                <div class="product_title"><p>Gold Shirt</p></div>
+                <div class="product_img"><p><img src="https://s29.picofile.com/file/8466220250/goldShirt2.png" alt=""  /></p></div>
+                <div class="prod_price"><span class="price">7999$</span></div>
+            </div>
+            <div class="prod_details_tab"> <button onclick="addShirt(2)" class="prod_buy">Buy</button> </div>
+        </div>
+        <div class="prod_box">
+            <div class="center_prod_box">
+                <div class="product_title"><p>Diamond Shirt</p></div>
+                <div class="product_img"><img src="https://s29.picofile.com/file/8466220268/dimondShirt3.png" alt="" style="height: 108px;" /></div>
+                <div class="prod_price"><span class="price">9999$</span></div>
+            </div>
+            <div class="prod_details_tab"> <button onclick="addShirt(3)" class="prod_buy">Buy</button> </div>
+        </div>
+    </div>
+</div>
+</div>
+</body>
+<script>
+    function setCookie(cname, cvalue, minute) {
+        const d = new Date();
+        d.setTime(d.getTime() + (minute * 60 * 1000));
+        let expires = "expires="+d.toUTCString();
+        document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+        console.log(cname + "=" + cvalue + ";" + expires + ";path=/");
+    }
+    function getCookie(cname) {
+        let name = cname + "=";
+        let ca = document.cookie.split(';');
+        for(let i = 0; i < ca.length; i++) {
+            let c = ca[i];
+            while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0)
+            {
+                return c.substring(name.length, c.length);
+            }
+        }
+        return "";
+    }
+    function addMoney(price){
+        const jwt = getCookie("Football-Fantasy");
+        const baseUrl = "http://localhost:3001/admin/addMoneyToUser";
+        const queryParams= 'token=' + jwt + "&money=" + price ;
+        const url = baseUrl + '?' + queryParams;
+        console.log(queryParams);
+        fetch(url, {
+            method: "POST",
+            headers: {
+                'Accept': "application/json , text/plain , */*",
+                'Content-Type': "application/json", 'charset':"UTF-8",
+            },
+        })
+            .then((res) => res.json())
+            .then((data) => {
+                console.log(data);
+                const test = Object.values(data);
+                console.log(typeof test[0].message + " " + test[0].message);
+                if(test[0].message.includes("successfully")==true){
+                    backHandler();
+                }
+            });
+    }
+    async function backHandler() {
+        if (navigation.canGoBack) {
+            await navigation.back().finished;
+        } 
+    }
+    function addShirt(shirt){
+        if(shirt=='1'){
+            setCookie("shirt1", "it is shirt 1 ", 2);
+            backHandler();
+        }
+        if(shirt=='2'){
+            setCookie("shirt2", "it is shirt 2 ", 2);
+            backHandler();
+        }
+        if(shirt=='3') {
+            setCookie("shirt3", "it is shirt 3 ", 2);
+            backHandler();
+        }
+    }
+
+</script>
+</html>

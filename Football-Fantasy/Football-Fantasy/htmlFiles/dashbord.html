@@ -1,0 +1,452 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Football Fantasy</title>
+    <link rel="icon" type="image/x-icon" href="https://s28.picofile.com/file/8465721992/Fantasy_football_image.png" style="max-width : 1% ;">
+</head>
+<style>
+    *{
+        top:0;
+        margin: 0;
+        padding: 0;
+    }
+    body{
+        background-image:url(https://s29.picofile.com/file/8466148300/dashbordImage.jpg);
+        background-size : cover;
+    }
+    .nav h1 ,ul{
+        display:inline ;
+    }
+    .nav{
+        width: auto;
+        height: auto;
+        text-align: center;
+        background-image: url(https://s29.picofile.com/file/8466173284/dashbordNavImage.jpg);
+        position: relative;
+        background-repeat: no-repeat;
+        background-size: cover;
+        color: azure;
+        border-bottom: gray ;
+    }
+    .nav h1{
+        margin-right:60% ;
+        font-family: monospace;
+        font-size: 300%;
+    }
+    ul {
+        margin-left: 0.1%;
+        width: 25%;
+        height:10%;
+        list-style-type: none;
+        overflow: hidden;
+        background-color: gray;
+        border-color: #333333;
+    }
+
+    li {
+        float: right;
+    }
+    li a {
+        display: block;
+        color: white;
+        text-align: center;
+        padding: 17px;
+        text-decoration: none;
+    }
+    li a:hover {
+        background-color: blueviolet;
+    }
+
+    body {
+        background-color: rgb(175, 207, 239);
+    }
+
+    .tablestyle {
+        margin-top:2%;
+        border-collapse: collapse;
+        width: 900px;
+        font-size: 20px;
+        font-family: sans-serif;
+        min-width: 400px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    }
+    .theadstyle{
+        background-color:#372c80;
+        color: #ffffff;
+        text-align: left;
+    }
+    .thstyle,
+    .trstyle {
+        text-align: center;
+        padding: 20px 25px;
+    }
+
+    .trstyle:nth-child(odd) {
+        background-color: #ffffff;
+    }
+
+    .trstyle:nth-child(even) {
+        background-color: #eeeeee;
+    }
+
+    .money-score-links {
+        width: 30%;
+    }
+    #money , #score {
+
+        font-size: 25px;
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        padding: 5px;
+        width: 70%;
+        background-color: #eee;
+        margin-top: 5%;
+    }
+
+    #score {
+        margin-top: 5%;
+    }
+    .container {
+        display: flex;
+    }
+    .profile {
+        margin-top: 1%;
+        border-right: 2px #000000 solid;
+        width: 20%;
+        margin-left: 2%;
+    }
+    #name {
+        color : #d1d1d1;
+        font-size: 32px;
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    }
+    #username {
+        color : #1aa6cd;
+        font-size: 30px;
+    }
+    .table-and-title {
+        margin-top: 3%;
+        margin-left: 5%;
+        display: none;
+    }
+    #choosePlayers-link , #formation-link , #usersTable-link {
+        cursor:pointer;
+        font-size: 25px;
+        text-decoration: none;
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        color: #999999;
+    }
+    #usersTable-link:hover {
+        color: #0741ef;
+
+    }
+    #choosePlayers-link:hover {
+        color: #0741ef;
+    }
+    #formation-link:hover {
+        color: #0741ef;
+    }
+    #table-title {
+        color: #372c80;
+        text-align: center;
+        font-size: 30px;
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    }
+    #moneyCount{
+        color : rgb(28, 139, 20);
+    }
+    #scoreCount{
+        color: rgb(186, 186, 22);
+        padding-left: 5%;
+        text-decoration: underline;
+    }
+    .show-border {
+        border-radius: 5%;
+        position: absolute;
+        background-color: rgba(41, 50, 176,0.6);
+        width: 25%;
+        height: 18%;
+        left: 45%;
+        top: 40%;
+        z-index: 1;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+        display: none;
+    }
+    .error-formation{
+        border-radius: 5%;
+        position: absolute;
+        background-color: #B21F1FDA;
+        width: 25%;
+        height: 18%;
+        left: 45%;
+        top: 40%;
+        z-index: 1;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+        display: none;
+    }
+    #okButton {
+        border : solid gainsboro;
+        width: 65px;
+        height: 40px;
+        background-color: rgb(84, 223, 254);
+        border-radius: 5px;
+        margin-top: 8%;
+        margin-left: 32%;
+    }
+    #okButton-formation{
+        border : solid gainsboro;
+        width: 65px;
+        height: 40px;
+        background-color: rgb(0, 255, 136);
+        border-radius: 5px;
+        margin-top: 8%;
+        margin-left: 43%;
+    }
+    #cancelButton{
+        width: 65px;
+        height: 40px;
+        border : solid gainsboro;
+        color: rgba(0, 0, 0,1);
+        background-color: rgb(253, 72, 72);
+        border-radius: 5px;
+        margin-left: 3%;
+    }
+    #border-text , #error-formation{
+        font-family:serif;
+        font-weight: bold;
+        margin-top: 5%;
+        text-align: center;
+        text-decoration: wavy;
+        text-shadow: #eee;
+        color: rgb(255, 255, 255);
+    }
+    #formation-link.clicked{
+        cursor: progress;
+    }
+</style>
+<body  onload="setTable() , setProfileAndMoneyAndScore(),isAllPlayersEpty()">
+<div class="nav">
+    <h1>Football Fantasy</h1>
+    <ul>
+        <li><a href="http://localhost:3001/contactUs">Contact Us</a></li>
+        <li><a href="http://localhost:3001/store">Store</a></li>
+        <li><a href="https://www.skysports.com/football/news">News</a></li>
+
+    </ul>
+</div>
+<br>
+<div class="container">
+    <div class="profile">
+        <p id="name"></p>
+        <br>
+        <p id="username"></p>
+        <br><br><br>
+        <p id="money">money : <span id="moneyCount"></span> </p>
+        <br>
+        <p id="score">Total Score : <span id="scoreCount"></span></p>
+        <br><br><br><br><br><br><br>
+        <a id="choosePlayers-link" href="http://localhost:3001/AllPlayers">Choose your players</a>
+        <br><br><br>
+        <a id="formation-link"  onclick="canPlayerGoToFormationPage()">Formation</a>
+        <br><br><br>
+        <a id="usersTable-link" href="http://localhost:3001/ranking">Users' ranking</a>
+    </div>
+    <div class="table-and-title" >
+        <p id="table-title">Your Team</p>
+        <br>
+        <div class="table-container"></div>
+    </div>
+    <div class="show-border" ><p id="border-text">Welcome to Football-Fantasy , your team is empty please choose player</p><button onclick="goToChoosePlayersPage()" id="okButton">Choose</button><button onclick="deleteResponse('show-border',1)" id="cancelButton">cancel</button></div>
+    <div class="error-formation" ><p id="border-text">You must have 15 players in your team </p><button onclick="deleteResponse('error-formation',2)" id="okButton-formation">OK</button></div>
+</div>
+</body>
+<script>
+    function getCookie(cname) {
+        let name = cname + "=";
+        let ca = document.cookie.split(';');
+        for(let i = 0; i < ca.length; i++) {
+            let c = ca[i];
+            while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0)
+            {
+                return c.substring(name.length, c.length);
+            }
+        }
+        return "";
+    }
+    tableEmpty = false;
+    function goToChoosePlayersPage(){
+        window.location.href = "http://localhost:3001/AllPlayers"
+    }
+    function setProfileAndMoneyAndScore()
+    {
+        const jwt = getCookie("Football-Fantasy");
+        let page = 1;
+        const baseUrl = "http://localhost:3001/user/profile";
+        const queryParams= 'token=' + jwt;
+        const url = baseUrl + '?' + queryParams;
+        fetch(url, {
+            headers: {
+                'Accept': "application/json , text/plain , */*",
+                'Content-Type': "application/json", 'charset':"UTF-8",
+            },
+        })
+            .then(response => response.json())
+            .then(data => {
+                const info = data[0];
+                const firstName1 = info.firstname +" ";
+                const lastName1 = info.lastname;
+                const username1 = info.username;
+                const money1 = info.money +"$";
+                const score1 =  " " + info.score;
+                console.log(firstName1);
+                var firstName = document.createTextNode(firstName1);
+                var lastName = document.createTextNode(lastName1);
+                var username = document.createTextNode(username1);
+                var money = document.createTextNode(money1);
+                var score = document.createTextNode(score1);
+
+                document.getElementById('name').appendChild(firstName);
+                document.getElementById('name').appendChild(lastName);
+                document.getElementById('username').appendChild(username);
+                document.getElementById('moneyCount').appendChild(money);
+                document.getElementById('scoreCount').appendChild(score);
+            })
+    }
+
+    function setTable()
+    {
+        const jwt = getCookie("Football-Fantasy");
+        document.getElementsByClassName('table-container')[0].innerHTML="";
+        const baseUrl = "http://localhost:3001/user/getAllPlayerOfUser";
+        const queryParams= 'token=' + jwt ;
+        const url = baseUrl + '?' + queryParams;
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+
+                const table = document.createElement('table');
+                table.classList.add('tablestyle');
+
+                const thead = document.createElement('thead');
+                thead.classList.add('theadstyle');
+
+                const headerRow = document.createElement('tr');
+                for (let key in data[0]) {
+                    const th = document.createElement('th');
+                    th.textContent = key;
+                    th.classList.add('thstyle');
+                    headerRow.appendChild(th);
+                }
+                thead.appendChild(headerRow);
+                table.appendChild(thead);
+
+
+                const tbody = document.createElement('tbody');
+                data.forEach(item => {
+                    const row = document.createElement('tr');
+                    row.classList.add('trstyle')
+                    for (let key in item) {
+                        const cell = document.createElement('td');
+                        cell.textContent = item[key];
+                        if(item[key]==""){
+                            tableEmpty=true;
+                        }
+                        row.appendChild(cell);
+                    }
+                    tbody.appendChild(row);
+                });
+                table.appendChild(tbody);
+                document.getElementsByClassName('table-container')[0].appendChild(table);
+                console.log(tableEmpty);
+                if(tableEmpty){
+                    document.getElementById("allPlayersTable").style.display="none";
+                }
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    }
+    function deleteResponse(id,type){
+        var elems = document.getElementsByClassName(id);
+        for (var i=0;i<elems.length;i+=1){
+            elems[i].style.display = 'none';
+        }
+        if(type == 2){
+            isAllPlayersEpty();
+        }
+    }
+    function isAllPlayersEpty(){
+        const jwt = getCookie("Football-Fantasy");
+        const baseUrl = "http://localhost:3001/user/numberOfAllPlayres";
+        const queryParams= "token=" + jwt  ;
+        const url = baseUrl + '?' + queryParams;
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                const res = data[0].message;
+                if(res == '0'){
+                    var elems = document.getElementsByClassName("show-border");
+                    for (var i=0;i<elems.length;i+=1){
+                        elems[i].style.display = 'inline';
+                    }
+                }
+                else{
+                    var elems = document.getElementsByClassName("table-and-title");
+                    for (var i=0;i<elems.length;i+=1){
+                        elems[i].style.display = 'inline';
+                    }
+                }
+            });
+    }
+    function canPlayerGoToFormationPage(){
+        const jwt = getCookie("Football-Fantasy");
+        document.getElementById("formation-link").classList.add("clicked");
+        const baseUrl = "http://localhost:3001/user/numberOfAllPlayres";
+        const queryParams= "token=" + jwt  ;
+        const url = baseUrl + '?' + queryParams;
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                const res = data[0].message;
+                if(res == '15'){
+                    autoSetPlayers();
+                }
+                else{
+                    var elems = document.getElementsByClassName("show-border");
+                    for (var i=0;i<elems.length;i+=1){
+                        elems[i].style.display = 'none';
+                    }
+                    var elems = document.getElementsByClassName("error-formation");
+                    for (var i=0;i<elems.length;i+=1){
+                        elems[i].style.display = 'inline';
+                        document.getElementById("")
+                    }
+                }
+            });
+    }
+    function autoSetPlayers(){
+        const jwt = getCookie("Football-Fantasy");
+        const baseUrl = "http://localhost:3001/user/autoSetUserPlayers";
+        const queryParams= "token=" + jwt  ;
+        const url = baseUrl + '?' + queryParams;
+        fetch(url,{
+            method: "POST",
+            headers: {
+                'Accept': "application/json , text/plain , */*",
+                'Content-Type': "application/json", 'charset':"UTF-8",
+            },
+        })
+            .then(response => response.json())
+            .then(data => {
+                const res = data;
+                console.log(res[0].message);
+                const mes = res[0].message;
+                if(mes.includes("successfully")==true){
+                    window.location.href="http://localhost:3001/formation"
+                }
+            });
+    }
+</script>
+</html>

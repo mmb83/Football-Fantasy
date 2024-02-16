@@ -1,0 +1,157 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+    <title>Sign Up</title>
+    <link rel="icon" type="image/x-icon" href="https://s28.picofile.com/file/8465721992/Fantasy_football_image.png" style="max-width : 1% ;">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="signUp.css">
+</head>
+<body>
+    <div id="loading-bar"></div>
+    <div class="loader" id="loader"></div>
+    <section class="ftco-section" id="signUp-form">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-6 text-center mb-5">
+                    <h2>Welcome to Football Fantasy</h2>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-md-6 col-lg-5">
+                    <div class="login-wrap p-4 p-md-5">
+                        <h3 class="text-center mb-4">Sign Up</h3>
+                        <div class="response-border" id="response"></div>
+                        <div class="form-group">
+                            <input type="text" class="form-control rounded-left" placeholder="firstName" id="firstName" style="margin-block-end:4% ;" >
+                            <input type="text" class="form-control rounded-left" placeholder="lastName" id="lastName" style="margin-block-end:4% ;" >
+                            <input type="email" class="form-control rounded-left" placeholder="Email" id="email" style="margin-block-end:4% ;" >
+                            <input type="text" class="form-control rounded-left" placeholder="Username" id="userName" >
+                        </div>
+                        <div class="form-group d-flex">
+                            <input type="password"class="form-control rounded-left" placeholder="Password" id="passWord" >
+                        </div>
+                        <a href="http://localhost:5292/login"  style=" padding-left:30%; font-size: 100%;">Have an account?</a>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary rounded submit p-3 px-5" onclick="signup()">Submit</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script>
+        function setInvalid() {
+            var input = document.getElementById('firstName');
+            input.classList.add('invalid');
+        }
+
+        function setValid() {
+            var input = document.getElementById('firstName');
+            input.classList.remove('invalid');
+        }
+        function handleClick() {
+            var loadingBar = document.getElementById("loading-bar");
+            loadingBar.style.display = "none";
+        }
+        /*document.addEventListener("DOMContentLoaded", function () {
+            var button = document.getElementById("button");
+            button.addEventListener("click", function () {
+                var loadingBar = document.getElementById("loading-bar");
+                loadingBar.style.display = "block";
+                handleClick();
+            });
+        });*/
+        function setCookie(cname, cvalue, minute) {
+            const d = new Date();
+            d.setTime(d.getTime() + (minute * 60 * 1000));
+            let expires = "expires="+d.toUTCString();
+            document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+            console.log(cname + "=" + cvalue + ";" + expires + ";path=/");
+        }
+        function getCookie(cname) {
+            let name = cname + "=";
+            let ca = document.cookie.split(';');
+            for(let i = 0; i < ca.length; i++) {
+                let c = ca[i];
+                while (c.charAt(0) == ' ') {
+                    c = c.substring(1);
+                }
+                if (c.indexOf(name) == 0)
+                {
+                    return c.substring(name.length, c.length);
+                }
+            }
+            return "";
+        }
+        function signup() {
+            document.getElementById("response").innerHTML = "";
+            console.log("signUp");
+            const showResponse = document.getElementById("response");
+            const firstName = document.getElementById("firstName").value;
+            const   lastName  = document.getElementById("lastName").value;
+            const  email = document.getElementById("email").value;
+            const  username = document.getElementById("userName").value;
+            const password = document.getElementById("passWord").value;
+            if (firstName == "" || lastName == "" || email == "" || username == "" || password == "")
+            {
+                document.getElementById("response").style.color="red";
+                document.getElementById("response").innerHTML="Please fill all the blanks";
+                return;
+            }
+            document.getElementById("signUp-form").style.opacity = "0.5";
+            document.getElementById("loader").style.display = "inline";
+            setCookie("username",username , 2.5);
+            const signUpValue={
+                userFirstName: firstName,
+                userLastName : lastName,
+                userEmail: email,
+                userUserName: username,
+                userPassword: password
+            }
+            console.log(signUpValue)
+            console.log(JSON.stringify(signUpValue));
+            console.log("sending request")
+            try{
+                fetch("http://localhost:3001/signUp", {
+                    method: "POST",
+                    headers: {
+                        Accept: "application/json ",
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(signUpValue),
+                    
+                }).then((response) => response.json())
+                    .then((data) => {
+                        document.getElementById("signUp-form").style.opacity = "1";
+                        document.getElementById("loader").style.display = "none";
+                       const test = Object.values(data);
+                       console.log(test[0].message)
+                        if(test[0].message.includes("Verify")){
+                            document.getElementById("response").style.color="green";
+                            document.getElementById("response").innerHTML=test[0].message;
+                            document.getElementById("loading-bar").style.display = "inline";
+                            setTimeout(function(){
+                                window.location.replace("http://localhost:3001/otp");
+                            },3000);
+                        }
+                        else{
+                            document.getElementById("response").style.color="red";
+                            document.getElementById("response").innerHTML=test[0].message;
+                        }
+                    });
+              
+            }
+            catch(err) {
+                console.log(err.message);
+                setTimeout(function(){
+                    window.location.replace("http://localhost:3001/otp")
+                })
+            }
+        }
+    </script>
+</body>
+</html>
+

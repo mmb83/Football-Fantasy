@@ -1,0 +1,929 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Football Fantasy</title>
+    <link rel="icon" type="image/x-icon" href="https://s28.picofile.com/file/8465721992/Fantasy_football_image.png" style="max-width : 1% ;">
+</head>
+<style>
+    *{
+        top:0;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    body{
+        overflow: hidden;
+    }
+    tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+    tr.selected{
+        background-color: greenyellow;
+    }
+    tbody :hover{
+        background-color: skyblue;
+    }
+    tbody :active{
+        background-color: greenyellow;
+    }
+    .nav h1 ,ul{
+        display:inline ;
+    }
+    .nav{
+        width: auto;
+        height: auto;
+        text-align: center;
+        background-image: url(https://s28.picofile.com/file/8466236676/navImage.jpg);
+        position: relative;
+        background-repeat: no-repeat;
+        background-size: cover;
+        color: azure;
+        border-style:ridge;
+        border-color: #333333;
+        border-bottom: gray ;
+    }
+    .nav h1{
+        margin-right:50% ;
+        font-family: monospace;
+        font-size: 300%;
+    }
+    ul {
+        margin-left: 0.1%;
+        width: 25%;
+        height:10%;
+        list-style-type: none;
+        overflow: hidden;
+        background-color: transparent;
+        border-color: #333333;
+    }
+
+    li {
+        float: right;
+    }
+    li a {
+        display: block;
+        color: white;
+        text-align: center;
+        padding: 17px;
+        text-decoration: none;
+    }
+    li a:hover {
+        background-color: blueviolet;
+    }
+    select {
+        width: 200px;
+        padding: 8px;
+    }
+
+    option {
+        padding: 8px;
+    }
+
+    .row {
+        display: flex;
+        margin-left:-5px;
+        margin-right:-5px;
+    }
+
+    .column {
+        flex: 50%;
+        padding: 5px;
+    }
+
+    .tablestyle {
+        border-collapse: collapse;
+        width: 800px;
+        font-size: 1em;
+        font-family: sans-serif;
+        min-width: 400px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    }
+    .theadstyle{
+        border: solid black;
+        background-color:#372c80;
+        color: #ffffff;
+        text-align: left;
+    }
+    .trstyle{
+        background-color: white;
+        border : solid #eee ;
+    }
+    .thstyle,
+    .trstyle {
+        text-align: center;
+        padding: 12px 15px;
+    }
+
+    .user-tablestyle {
+        border-collapse: collapse;
+        width: 550px;
+        font-size: 1em;
+        font-family: sans-serif;
+        min-width: 450px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    }
+    .user-theadstyle{
+        background-color:#8d448b;
+        color: #ffffff;
+        text-align: left;
+    }
+    .user-trstyle{
+        background-color: white;
+        border : solid #eee ;
+    }
+    .user-thstyle,
+    .user-trstyle {
+        text-align: center;
+        padding: 15px 19px;
+    }
+
+    .pagination {
+        font-size: 12px;
+        width: min-content;
+        height:min-content;
+        display: flex;
+        text-align : center;
+        justify-content: center;
+        align-items: center;
+        margin-left: 3%;
+
+    }
+
+    .pagination-link {
+        color: #000;
+        text-decoration: none;
+        padding: 8px 12px;
+        margin: 0 2px;
+        border-radius: 4px;
+        background-color: #f1f1f1;
+        transition: background-color 0.3s;
+    }
+
+    .pagination-link:hover {
+        background-color: #ddd;
+    }
+
+    .pagination-link.active {
+        background-color: #377D71;
+        color: #fff;
+    }
+
+    .search-sort-filter {
+        width: 65%;
+        display: flex;
+    }
+    .search input[type=text] {
+        width: 60%;
+        height: 60%;
+        -webkit-transition: width 0.4s ease-in-out;
+        transition: width 0.4s ease-in-out;
+        border-color: #377D71;
+
+    }
+    .search input[type=text]:focus {
+        width: 70%;
+
+    }
+    #table-container table {
+        margin-top: 3%;
+        margin-bottom: 3%;
+        margin-left: 5%;
+        z-index: 5;
+    }
+    #userTable table{
+        margin-top: 8%;
+        margin-left :16%;
+        z-index: 5;
+    }
+    .Button {
+        height: 20px;
+        color: #eee;
+        border-color: #377D71;
+        background-color:#377D71;
+    }
+
+    label {
+
+        background-color:#377D71;
+        color: #eee;
+        font-size: 17px;
+    }
+     .sort ,.filter{
+        margin-top: 1%;
+        margin-left: 2%;
+    }
+     .search{
+         margin-top: 1.5%;
+         margin-left: 2%;
+     }
+    .ask-border , .response-border{
+        border-radius: 5%;
+        position: absolute;
+        background-color: rgb(255, 255, 255);
+        width: 25%;
+        height: 18%;
+        left: 35%;
+        top: 40%;
+        z-index: 1;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+        display: none;
+    }
+    .askToDelete-border{
+        border-radius: 5%;
+        position: absolute;
+        background-color: rgb(255, 255, 255);
+        width: 25%;
+        height: 18%;
+        left: 35%;
+        top: 40%;
+        z-index: 1;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+        display: none;
+    }
+    #okButton {
+        border : solid gainsboro;
+        width: 65px;
+        height: 40px;
+        background-color: rgb(104, 254, 84);
+        border-radius: 5px;
+        margin-top: 8%;
+        margin-left: 32%;
+    }
+    #cancelButton{
+        width: 65px;
+        height: 40px;
+        border : solid gainsboro;
+        color: rgba(0, 0, 0,1);
+        background-color: rgba(255, 57, 57, 0.9);
+        border-radius: 5px;
+        margin-left: 3%;
+    }
+    #ask-text , #response-text , #askToDelete-text{
+        font-family:serif;
+        font-weight: bold;
+        margin-top: 5%;
+        text-align: center;
+        text-decoration: wavy;
+        text-shadow: #eee;
+        color: black;
+    }
+    .showMoney{
+        text-shadow: #000000;
+        border-bottom: none;
+        color: white;
+        z-index: 10;
+        float: left;
+        margin-left: 16.1%;
+        margin-top: 5%;
+        width: auto;
+        padding-left: 0.3%;
+        padding-right: 0.7%;
+        background-color: #8d448b;
+    }
+    #moneyCount{
+        color: rgb(0, 243, 0);
+    }
+</style>
+<body onload="numberOfPaginations(0),getAllPlayers(),getUserPlayers(),forwardHandler()">
+<div class="nav">
+    <h1>Football Fantasy</h1>
+    <ul>
+        <li><a href="http://localhost:3001/contactUs">Contact Us</a></li>
+        <li><a href="http://localhost:3001/store">Store</a></li>
+        <li><a href="https://www.skysports.com/football/news">News</a></li>
+        <li><a href="http://localhost:3001/dashbord">Profile</a></li>
+    </ul>
+</div>
+<div class="search-sort-filter">
+    <div class="search">
+        <input type="text" placeholder="Search a player..." id="Search">
+        <button class="Button" onclick="setVariables(),search()" >Search</button>
+    </div>
+    <div class="sort">
+        <label for="sortType">&nbsp; Sort Type : &nbsp;</label>
+        <select id="sortType" onchange="setVariables(),sortAndFilter()">
+            <optgroup label="Sort By price">
+                <option value="1">Ascending (By Price)</option>
+                <option value="2">Descending (By Price)</option>
+            </optgroup>
+            <optgroup label="Sort By Score">
+                <option value="3">Ascending (By Score)</option>
+                <option value="4">Descending (By Score)</option>
+            </optgroup>
+        </select>
+
+    </div>
+    <div class="filter">
+        <label for="filterType">&nbsp; Filter players : &nbsp;</label>
+        <select id="filterType" onchange="setVariables(),sortAndFilter()">
+            <option value="0" >choose a position</option>
+            <optgroup label="Filter By Position">
+                <option value="1">GoalKeeper</option>
+                <option value="2">Defender</option>
+                <option value="3">Midfielder</option>
+                <option value="4">Attacker</option>
+            </optgroup>
+            <optgroup label="Filter By Team">
+                <option value="5">Arsenal</option>
+                <option value="6">Aston_Villa</option>
+                <option value="7">Bournemouth</option>
+                <option value="8">Brentford</option>
+                <option value="9">Brighton</option>
+                <option value="10">Burnley</option>
+                <option value="11">Chelsea</option>
+                <option value="12">Crystal Palace</option>
+                <option value="13">Everton</option>
+                <option value="14">Fulham</option>
+                <option value="15">Liverpool</option>
+                <option value="16">Luton</option>
+                <option value="17">Man City</option>
+                <option value="18">Man_Utd</option>
+                <option value="19">Newcastle</option>
+                <option value="20">Nott'm Forest</option>
+                <option value="21">Sheffield Utd</option>
+                <option value="22">Spurs</option>
+                <option value="23">West_Ham</option>
+                <option value="24">Wolves</option>
+            </optgroup>
+        </select>
+    </div>
+    <button class="Button" onclick="setVariables(),sortAndFilter()" style="margin-top: 2%; height: 5%; display: none;">Submit</button>
+</div>
+<div class="row">
+    <div class="column">
+        <div id="table-container"></div></div>
+    <div class="column"><div class="showMoney">money : <span id="moneyCount"></span></div><div id="userTable"></div></div></div>
+<div class="askToDelete-border" style="display: none;"><p id="askToDelete-text">Are you sure to sell <span id="delete-name" style="color: rgb(0, 183, 255) ;"></span><span style="display:inline;"><span id="delete-amount"></span></span><span id="delete-price" style="color: rgb(0, 181, 0);"></span> ?</p><button onclick="deletePlayerFromUserTeam()" id="okButton">Ok</button><button onclick="deleteResponse('askToDelete-border')" id="cancelButton">cancel</button></div>
+<div class="ask-border" style="display: none;"><p id="ask-text">Are you sure to buy <span id="name" style="color: rgb(0, 183, 255) ;"></span><span style="display:inline;"><span id="amount"></span></span><span id="price" style="color: red;"></span> ?</p><button onclick="addPlayerToUserTeam()" id="okButton">Ok</button><button onclick="deleteResponse('ask-border')" id="cancelButton">cancel</button></div>
+<div class="response-border"><p id="response-text"> error : <span id="errorText" style="color: red; font-weight: lighter;">username not found ! </span></p><button onclick="deleteResponse('response-border')" id="okButton" style="margin-left:43%;">Ok</button></div>
+<div class="pagination" style="z-index: -1;">
+    <a href="#" class="pagination-link" id="prev" style="display: none;" ></a>
+    <div id="pagination-links"></div>
+    <a href="#" class="pagination-link" id="next" style="display: none;" ></a>
+</div>
+
+</body>
+<script>
+    let  playerFirstName = "" ,playerLastName = "" ,playerPosition = "";
+    let removeFirstName="" , removeLastName="" ;
+    let page =1;
+    let time = 0 , time1 = 0 , time2 = 0 , time3 = 0;
+    let numberOfPaginationLink = 0;
+    function setVariables(){
+        time1 = 0 , time2 = 0 , time = 0 , time3 = 0;
+        page = 1;
+    }
+    function getCookie(cname) {
+        let name = cname + "=";
+        let ca = document.cookie.split(';');
+        for(let i = 0; i < ca.length; i++) {
+            let c = ca[i];
+            while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0)
+            {
+                return c.substring(name.length, c.length);
+            }
+        }
+        return "";
+    }
+    function deletePlayerFromUserTeam(){
+        let position = 0;
+        if(playerPosition=="Attacker"){
+            position = 4;
+        }
+        else if(playerPosition=="Defender"){
+            position = 2;
+        }
+        else if(playerPosition == "GoalKeeper"){
+            position = 1;
+        }
+        else{
+            position = 3;
+        }
+        const jwt = getCookie("Football-Fantasy");
+        const baseUrl = "http://localhost:3001/user/removePlayer";
+        const queryParams= 'token=' + jwt + "&playerFirstName=" + removeFirstName +"&playerLastName=" + removeLastName ;
+        const url = baseUrl + '?' + queryParams;
+        try{
+            fetch(url, {
+                method: "POST",
+                headers: {
+                    'Accept': "application/json , text/plain , */*",
+                    'Content-Type': "application/json", 'charset':"UTF-8",
+                },
+            })
+                .then((res) => res.json())
+                .then((data) => {
+                    deleteResponse("askToDelete-border");
+                    getUserPlayers();
+                });
+        }
+        catch(error){
+            consol.log(error);
+        }
+    }
+    function addPlayerToUserTeam(){
+        let position = 0;
+        if(playerPosition=="Attacker"){
+            position = 4;
+        }
+        else if(playerPosition=="Defender"){
+            position = 2;
+        }
+        else if(playerPosition == "GoalKeeper"){
+            position = 1;
+        }
+        else{
+            position = 3;
+        }
+        const jwt = getCookie("Football-Fantasy");
+        const baseUrl = "http://localhost:3001/user/addPlayer";
+        const queryParams= 'token=' + jwt + "&playerFirstName=" + playerFirstName +"&playerLastName=" + playerLastName + "&position=" + position;
+        const url = baseUrl + '?' + queryParams;
+        try{
+            fetch(url, {
+                method: "POST",
+                headers: {
+                    'Accept': "application/json , text/plain , */*",
+                    'Content-Type': "application/json", 'charset':"UTF-8",
+                },
+            })
+                .then((res) => res.json())
+                .then((data) => {
+                    const test = Object.values(data);
+                    deleteResponse("ask-border");
+                    if(test[0].message.includes("successfully")==false){
+                        showErrorResponse(test[0].message);
+                    }
+                    getUserPlayers();
+                });
+        }
+        catch(error){
+            consol.log(error);
+        }
+    }
+    function pagination(mode)
+    {
+        var currentPage = 1;
+        var totalPages = numberOfPaginationLink;
+        var paginationLinks = document.getElementById("pagination-links");
+        var prevButton = document.getElementById("prev");
+        var nextButton = document.getElementById("next");
+        function renderPagination() {
+            paginationLinks.innerHTML = "";
+            var prevLink = document.createElement("a");
+            prevLink.href = "#";
+            prevLink.className = "pagination-link";
+            prevLink.innerHTML = "&laquo;";
+            prevLink.addEventListener("click",function() {
+                if (currentPage > 1) {
+                    currentPage--;
+                    page--;
+                    if(mode==1){
+                        search()
+                    }
+                    else if(mode==2){
+                        filterByPosition();
+                    }
+                    else if(mode==3){
+                        sort();
+                    }
+                    else if(mode==4){
+                        sortAndFilter();
+                    }
+                    else{
+                        getAllPlayers();
+                    }
+                    renderPagination();
+                }
+            });
+            prevButton.style.visibility = (currentPage === 1) ? "hidden" : "visible";
+            paginationLinks.appendChild(prevLink);
+            for (var i = 1; i <= totalPages; i++) {
+                var pageLink = document.createElement("a");
+                pageLink.href = "#";
+                pageLink.className = "pagination-link" + (currentPage === i ? " active" : "");
+                pageLink.innerHTML = i;
+                pageLink.addEventListener("click", (function(newPage) {
+                    return function() {
+                        page=newPage;
+                        currentPage = newPage;
+                        if(mode==1){
+                            search()
+                        }
+                        else if(mode==2){
+                            filterByPosition();
+                        }
+                        else if(mode==3){
+                            sort();
+                        }
+                        else if(mode==4){
+                            sortAndFilter();
+                        }
+                        else{
+                            getAllPlayers();
+                        }
+                        renderPagination();
+                    };
+                })(i));
+                paginationLinks.appendChild(pageLink);
+            }
+            var nextLink = document.createElement("a");
+            nextLink.href = "#";
+            nextLink.className = "pagination-link";
+            nextLink.innerHTML = "&raquo;";
+            nextLink.addEventListener("click",function() {
+                if (currentPage < totalPages) {
+                    currentPage++;
+                    page++;
+                    if(mode==1){
+                        search()
+                    }
+                    else if(mode==2){
+                        filterByPosition();
+                    }
+                    else if(mode==3){
+                        sort();
+                    }
+                    else if(mode==4){
+                        sortAndFilter();
+                    }
+                    else{
+                        getAllPlayers();
+                    }
+                    renderPagination();
+                }
+            });
+            nextButton.style.visibility = (currentPage === totalPages) ? "hidden" : "visible";
+            paginationLinks.appendChild(nextLink);
+        }
+        renderPagination();
+
+        function setPage(newPage){
+            page=newPage;
+        }
+    }
+    function getAllPlayers()
+    {
+        document.getElementById("table-container").innerHTML="";
+        const baseUrl = "http://localhost:3001/user/getAllPlayers";
+        const queryParams= 'page=' + page;
+        const url = baseUrl + '?' + queryParams;
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                setTable(data);
+            })
+    }
+    function sort(){
+        const sortType = document.getElementById("sortType").value;
+        let type = 0;
+        let mode = 0;
+        if(sortType==2 || sortType==4){
+            mode = 1;
+        }
+        if(sortType==1 || sortType == 2){
+            type = 1;
+        }
+        const baseUrl = "http://localhost:3001/user/sortdatabasePlayers";
+        const queryParams= 'sortType=' + type + "&mode=" + mode + "&page=" + page;
+        const url = baseUrl + '?' + queryParams;
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                    if(time1 == 0){
+                        time1++;
+                        pagination(3);
+                    }
+                    setTable(data);
+                }
+            );
+    }
+    function numberOfPaginations(mode){
+        if(mode==0){
+            const url = "http://localhost:3001/user/paginationOfAllPlayers"
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    let number = data[0].message;
+                    number = parseInt(number);
+                    console.log(typeof number + " " + number);
+                    numberOfPaginationLink = number;
+                    pagination(0);
+                });
+        }
+        if(mode==1){
+            const webName = document.getElementById("Search").value;
+            const baseUrl = "http://localhost:3001/user/paginationOfSearch";
+            const queryParams= 'webName=' + webName ;
+            const url = baseUrl + '?' + queryParams;
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    let number = data[0].message;
+                    number = parseInt(number);
+                    console.log(typeof number + " " + number);
+                    numberOfPaginationLink = number;
+                    pagination(1);
+                });
+        }
+        if(mode==4){
+            const filterType = document.getElementById("filterType").value;
+            const sortType = document.getElementById("sortType").value;
+            let type = 0;
+            let mode = 0;
+            if(sortType==2 || sortType==4){
+                mode = 1;
+            }
+            if(sortType==1 || sortType == 2){
+                type = 1;
+            }
+            const baseUrl = "http://localhost:3001/user/paginationOfSortAndFilter";
+            const queryParams= "position=" + filterType + '&sortType=' + type + "&mode=" + mode ;
+            const url = baseUrl + '?' + queryParams;
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    let number = data[0].message;
+                    number = parseInt(number);
+                    numberOfPaginationLink = number;
+                    pagination(4);
+                });
+        }
+    }
+    function sortAndFilter(){
+        const filterType = document.getElementById("filterType").value;
+        if(filterType==0){
+            numberOfPaginationLink=30;
+            sort();
+        }
+        else{
+            const sortType = document.getElementById("sortType").value;
+            let type = 0;
+            let mode = 0;
+            if(sortType==2 || sortType==4){
+                mode = 1;
+            }
+            if(sortType==1 || sortType == 2){
+                type = 1;
+            }
+            const baseUrl = "http://localhost:3001/user/sortAndFilterPlayers";
+            const queryParams= "position=" + filterType + '&sortType=' + type + "&mode=" + mode + "&page=" + page;
+            const url = baseUrl + '?' + queryParams;
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                        if(time3 == 0){
+                            time3++;
+                            numberOfPaginations(4);
+                            pagination(4);
+                        }
+                        setTable(data);
+                    }
+                );
+        }
+    }
+    function filterByPosition(){
+        const Position = document.getElementById("filterType").value;
+        const baseUrl = "http://localhost:3001/user/filterPlayersByPosition";
+        const queryParams= 'position=' + Position + "&page=" + page;
+        const url = baseUrl + '?' + queryParams;
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                    if(time3 == 0){
+                        time1++;
+                        pagination(2);
+                    }
+                    setTable(data);
+                }
+            );
+    }
+    function search(){
+        if(time2==0){
+            numberOfPaginations(1);
+            time2++;
+        }
+        const input = document.getElementById("Search").value;
+        const baseUrl = "http://localhost:3001/user/search";
+        const queryParams= 'webName=' + input + "&page=" + page;
+        const url = baseUrl + '?' + queryParams;
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                if(time == 0){
+                    time++;
+                    pagination(1);
+                }
+                setTable(data);
+            });
+
+    }
+    function getUserPlayers(){
+        const jwt = getCookie("Football-Fantasy");
+        const baseUrl = "http://localhost:3001/user/getAllPlayerOfUser";
+        const queryParams= 'token=' + jwt ;
+        const url = baseUrl + '?' + queryParams;
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                setUserTable(data);
+            });
+    }
+    function setUserTable(data){
+        document.getElementById("userTable").innerHTML="";
+        const table = document.createElement('table');
+        table.classList.add('user-tablestyle');
+
+        const thead = document.createElement('thead');
+        thead.classList.add('user-theadstyle');
+
+        const headerRow = document.createElement('tr');
+        for (let key in data[0]) {
+            const th = document.createElement('th');
+            th.textContent = key;
+            th.classList.add('user-thstyle');
+            headerRow.appendChild(th);
+        }
+        thead.appendChild(headerRow);
+        table.appendChild(thead);
+        const tbody = document.createElement('tbody');
+        data.forEach(item => {
+            const row = document.createElement('tr');
+            row.classList.add('user-trstyle')
+            for (let key in item) {
+                const cell = document.createElement('td');
+                cell.textContent = item[key];
+                row.appendChild(cell);
+            }
+            tbody.appendChild(row);
+        });
+        table.appendChild(tbody);
+        document.getElementById('userTable').appendChild(table);
+        showMoney();
+        setUserPlayersTableProperties();
+    }
+    function setTable(data){
+        document.getElementById("table-container").innerHTML="";
+        const table = document.createElement('table');
+        table.classList.add('tablestyle');
+
+        const thead = document.createElement('thead');
+        thead.classList.add('theadstyle');
+
+        const headerRow = document.createElement('tr');
+        for (let key in data[0]) {
+            const th = document.createElement('th');
+            th.textContent = key;
+            th.classList.add('thstyle');
+            headerRow.appendChild(th);
+        }
+        thead.appendChild(headerRow);
+        table.appendChild(thead);
+        const tbody = document.createElement('tbody');
+        data.forEach(item => {
+            const row = document.createElement('tr');
+            row.classList.add('trstyle')
+            for (let key in item) {
+                const cell = document.createElement('td');
+                cell.textContent = item[key];
+                row.appendChild(cell);
+            }
+            tbody.appendChild(row);
+        });
+        table.appendChild(tbody);
+        document.getElementById('table-container').appendChild(table);
+        setAllPlayersTableProperties();
+    }
+    function setAllPlayersTableProperties(){
+        let id = 0 , end = 21;
+        const table = document.getElementById('table-container');
+        const rows = document.getElementsByTagName("tr");
+        if(rows.length < 21){
+            end = rows.length;
+        }
+        for (var i = 0; i < end; i++) {
+            rows[i].setAttribute("id" , id );
+            let test = rows[i].id;
+            rows[i].onclick = function(){
+                selectAllPlayersRow(test);
+            }
+            id++;
+        }
+    }
+    function setUserPlayersTableProperties(){
+        let id = 21;
+        const table = document.getElementById('userTable');
+        const rows = document.getElementsByTagName("tr");
+        for (var i = 21; i < rows.length; i++) {
+            rows[i].setAttribute("id" , id );
+            let test = rows[i].id;
+            rows[i].onclick = function(){
+                selectUserPlayersRow(test);
+            }
+            id++;
+        }
+    }
+    function selectUserPlayersRow(rowId){
+        console.log(rowId);
+        const rows = document.getElementsByTagName("tr");
+        var row = document.getElementById(rowId);
+        if(rowId !=21 ){
+            row.classList.toggle("selected");
+        }
+        for(var i = 22 ; i < rows.length ; i++){
+            if(rows[i].id==rowId){
+                if(row.classList != "selected"){
+                    var cell = document.getElementsByTagName("td");
+                    removeFirstName = cell[(i-2)*6].innerHTML;
+                    const second_name = cell[((i-2)*6)+1].innerHTML;
+                    removeLastName = second_name;
+                    const price = cell[((i-2)*6)+5].innerHTML;
+                    showDeletePlayerBorder(second_name,price);
+                }
+            }
+            else{
+                const newRow = document.getElementById(rows[i].id);
+                newRow.classList.remove("selected");
+            }
+        }
+    }
+    function selectAllPlayersRow(rowId) {
+        console.log(rowId);
+        const rows = document.getElementsByTagName("tr");
+        var row = document.getElementById(rowId);
+        if(rowId !=0 ){
+            row.classList.toggle("selected");
+        }
+        for(var i = 1 ; i < rows.length ; i++){
+            if(rows[i].id==rowId){
+                if(row.classList != "selected"){
+                    var cell = document.getElementsByTagName("td");
+                    playerFirstName = cell[(i-1)*6].innerHTML;
+                    playerPosition = cell[((i-1)*6)+2].innerHTML
+                    const second_name = cell[((i-1)*6)+1].innerHTML;
+                    playerLastName = second_name;
+                    const price = cell[((i-1)*6)+5].innerHTML;
+                    showBorder(second_name,price);
+                }
+            }
+            else{
+                const newRow = document.getElementById(rows[i].id);
+                newRow.classList.remove("selected");
+            }
+        }
+    }
+    function showBorder(name,price){
+        var elems = document.getElementsByClassName('ask-border');
+        for (var i=0;i<elems.length;i+=1){
+            elems[i].style.display = 'inline';
+        }
+        document.getElementById("name").innerHTML=" " + name;
+        document.getElementById("amount").innerHTML=" " + "Amount of";
+        document.getElementById("price").innerText= " " + price +"$" ;
+    }
+    function showDeletePlayerBorder(name,price){
+        var elems = document.getElementsByClassName('askToDelete-border');
+        for (var i=0;i<elems.length;i+=1){
+            elems[i].style.display = 'inline';
+        }
+        document.getElementById("delete-name").innerHTML=" " + name;
+        document.getElementById("delete-amount").innerHTML=" " + "Amount of";
+        document.getElementById("delete-price").innerText= " " + price +"$" ;
+    }
+    function deleteResponse(id){
+        var elems = document.getElementsByClassName(id);
+        for (var i=0;i<elems.length;i+=1){
+            elems[i].style.display = 'none';
+        }
+        deleteColors();
+    }
+    function deleteColors(){
+        const rows = document.getElementsByTagName("tr");
+        for(let i = 0 ; i < rows .length ; i++){
+            rows[i].classList.remove("selected");
+        }
+    }
+    function showErrorResponse(text){
+        var elems = document.getElementsByClassName('response-border');
+        for (var i=0;i<elems.length;i+=1){
+            elems[i].style.display = 'inline';
+        }
+        document.getElementById("errorText").innerHTML=text;
+    }
+    function showMoney(){
+        const jwt = getCookie("Football-Fantasy");
+        const baseUrl = "http://localhost:3001/user/getUserMoney";
+        const queryParams= 'token=' + jwt ;
+        const url = baseUrl + '?' + queryParams;
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                const money = Object.values(data);
+                document.getElementById("moneyCount").innerHTML = money[0].message + " $";
+            });
+    }
+</script>
+</html>

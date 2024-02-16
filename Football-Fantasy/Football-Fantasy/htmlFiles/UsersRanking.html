@@ -1,0 +1,220 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Ranking</title>
+    <link rel="icon" type="image/x-icon" href="https://s28.picofile.com/file/8465721992/Fantasy_football_image.png" style="max-width : 1% ;">
+</head>
+<style>
+    *{
+        top:0;
+        margin: 0;
+        padding: 0;
+    }
+    body{
+        background-image: url("https://s28.picofile.com/file/8466255400/userRanking.jpg");
+        background-size: cover;
+    }
+    .nav h1 ,ul{
+        display:inline ;
+    }
+    .nav{
+        width: auto;
+        height: auto;
+        text-align: center;
+        background-image: url(https://s29.picofile.com/file/8466173284/dashbordNavImage.jpg);
+        position: relative;
+        background-repeat: no-repeat;
+        background-size: cover;
+        color: azure;
+        border-bottom: gray ;
+    }
+    .nav h1{
+        margin-left:2%;
+        font-family: monospace;
+        font-size: 300%;
+        float: left;
+    }
+    ul {
+        background-color: red;
+        width: 40%;
+        height:10%;
+        list-style-type: none;
+        overflow: hidden;
+        background-color: gray;
+        border-color: #333333;
+    }
+
+    li {
+        float: right;
+    }
+    li a {
+        font-size: 20px;
+        display: block;
+        color: white;
+        text-align: center;
+        padding: 17px;
+        text-decoration: none;
+    }
+    li a:hover {
+        background-color: blueviolet;
+    }
+
+    body {
+        background-color: rgb(175, 207, 239);
+    }
+
+    .tablestyle {
+        margin-top: 10%;
+        border-collapse: collapse;
+        width: 900px;
+        font-size: 20px;
+        font-family: sans-serif;
+        min-width: 400px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    }
+    .theadstyle{
+        background-color:#372c80;
+        color: #ffffff;
+        text-align: left;
+    }
+    .thstyle,
+    .trstyle {
+        text-align: center;
+        padding: 12px 15px;
+    }
+
+    .trstyle:nth-child(odd) {
+        background-color: #ffffff;
+    }
+
+    .trstyle:nth-child(even) {
+        background-color: #eeeeee;
+    }
+    .table-container {
+        margin-left: 20%;
+        margin-top: 5%;
+    }
+    tr .selected{
+        background-color: rgba(255, 255, 0, 0.99);
+    }
+</style>
+<body  onload="setTable()"><div class="nav">
+    <h1>Football Fantasy</h1>
+    <ul>
+        <li><a href="http://localhost:3001/contactUs">Contact Us</a></li>
+        <li><a href="http://localhost:3001/store"></a></li>
+        <li><a href="https://www.skysports.com/football/news">News</a></li>
+        <li><a href="http://localhost:3001/dashbord">Profile</a></li>
+    </ul>
+</div>
+<br>
+<div class="table-container"></div>
+</body>
+<script>
+    function getCookie(cname)
+    {
+        let name = cname + "=";
+        let ca = document.cookie.split(';');
+        for(let i = 0; i < ca.length; i++) {
+            let c = ca[i];
+            while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0)
+            {
+                return c.substring(name.length, c.length);
+            }
+        }
+        return "";
+    }
+    function setTable()
+    {
+        let page = 1;
+        document.getElementsByClassName('table-container')[0].innerHTML="";
+        const baseUrl = "http://localhost:3001/user/rankingTable";
+        const queryParams= 'page=' + page;
+        const url = baseUrl + '?' + queryParams;
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                const table = document.createElement('table');
+                table.classList.add('tablestyle');
+
+                const thead = document.createElement('thead');
+                thead.classList.add('theadstyle');
+
+                const headerRow = document.createElement('tr');
+                for (let key in data[0]) {
+                    const th = document.createElement('th');
+                    th.textContent = key;
+                    th.classList.add('thstyle');
+                    headerRow.appendChild(th);
+                }
+                thead.appendChild(headerRow);
+                table.appendChild(thead);
+
+
+                const tbody = document.createElement('tbody');
+                data.forEach(item => {
+                    const row = document.createElement('tr');
+                    row.classList.add('trstyle')
+                    for (let key in item) {
+                        const cell = document.createElement('td');
+                        cell.textContent = item[key];
+                        row.appendChild(cell);
+                    }
+                    tbody.appendChild(row);
+                });
+                table.appendChild(tbody);
+                document.getElementsByClassName('table-container')[0].appendChild(table);
+                setTableProperties();
+            })
+            .catch(error => {
+                console.log('خطا در دریافت JSON: ', error);
+            });
+    }
+    function setTableProperties(){
+        let id = 0 ;
+        const table = document.getElementById('table-container');
+        const rows = document.getElementsByTagName("tr");
+        for (var i = 0; i < rows.length; i++) {
+            rows[i].setAttribute("id" , id );
+            id++;
+        }
+        setProfileAndMoneyAndScore();
+    }
+    function addColorToTable(user){
+        const rows = document.getElementsByTagName("tr");
+        console.log(rows.length);
+        for(var i = 1 ; i < rows.length ; i++){
+                var cell = document.getElementsByTagName("td");
+                const username = cell[((i-1)*5)+3].innerHTML;
+                if(username == user){
+                    const row = document.getElementById(i);
+                    console.log("list");
+                    row.style.backgroundColor = "yellow";
+                }
+        }
+    }
+    function setProfileAndMoneyAndScore()
+    {
+        const jwt = getCookie("Football-Fantasy");
+        const baseUrl = "http://localhost:3001/user/profile";
+        const queryParams= 'token=' + jwt;
+        const url = baseUrl + '?' + queryParams;
+        fetch(url, {
+            headers: {
+                'Accept': "application/json , text/plain , */*",
+                'Content-Type': "application/json", 'charset':"UTF-8",
+            },
+        })
+            .then(response => response.json())
+            .then(data => {
+                const info = data[0];
+                const username = info.username;
+                addColorToTable(username);
+            })
+        
+    }
+</script>
+</html>

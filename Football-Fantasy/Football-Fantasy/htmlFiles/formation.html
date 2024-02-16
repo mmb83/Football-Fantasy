@@ -1,0 +1,667 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Football Fantasy</title>
+    <link rel="icon" type="image/x-icon" href="https://s28.picofile.com/file/8465721992/Fantasy_football_image.png" style="max-width : 1% ;">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <style>
+        *{
+            top: 0;
+            margin: 0;
+        }
+        body{
+            background-image: url(https://s28.picofile.com/file/8466222950/formationImageOpacity.jpg);
+            background-size: cover;
+            overflow: hidden;
+        }
+        .nav h1 ,ul
+        {
+            display:inline ;
+        }
+        tr.selected{
+            background-color:rgb(3, 230, 3);
+        }
+        tbody :hover{
+            background-color: rgb(0, 179, 255);
+        }
+        tbody:nth-child(even) {
+            background-color: #e1e1e1;
+        }
+        .nav{
+            width: auto;
+            height: auto;
+            text-align: center;
+            background-image: url(https://s28.picofile.com/file/8466223034/formationNav.jpg);
+            position: relative;
+            background-repeat: no-repeat;
+            background-size: cover;
+            color: azure;
+            border-bottom: gray ;
+        }
+        .nav h1{
+            margin-right:50% ;
+            font-family: monospace;
+            font-size: 300%;
+        }
+        ul {
+            margin-left: 0.1%;
+            width: 25%;
+            height:10%;
+            list-style-type: none;
+            overflow: hidden;
+            background-color: transparent;
+            border-color: #333333;
+        }
+
+        li {
+            float: right;
+        }
+        li a {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 17px;
+            text-decoration: none;
+        }
+        li a:hover {
+            background-color: blueviolet;
+        }
+
+        .container
+        {
+            position: relative;
+            width: 100%;
+            max-width: 400px;
+            margin: 2% 4% 2%;
+        }
+
+        .container img
+        {
+
+            width: 100%;
+            height: 600px;
+        }
+
+        .container button
+        {
+
+            position: absolute;
+            transform: translate(-50%, -50%);
+            -ms-transform: translate(-50%, -50%);
+            background: none;
+            border: none;
+            width: 60px;
+            height: 72px;
+            color: white;
+        }
+
+        #GK {
+            top: 90%;
+            left: 63%;
+        }
+        #CB1 {
+            top: 78%;
+            left: 83%;
+        }
+        #CB2 {
+            top: 78%;
+            left: 46%;
+        }
+        #LB {
+            top: 70%;
+            left: 22%;
+        }
+        #RB {
+            top: 70%;
+            left: 108%;
+        }
+        #CM {
+            top: 54%;
+            left: 63%;
+        }
+        #LM {
+            top: 47%;
+            left: 35%;
+        }
+        #RM {
+            top: 47%;
+            left: 95%;
+        }
+        #RW {
+            top: 20%;
+            left: 105%;
+        }
+        #LW {
+            top: 20%;
+            left: 25%;
+        }
+        #CW {
+            top: 15%;
+            left: 63%;
+        }
+
+        .container button img
+        {
+            width: 60px;
+            height: 72px;
+            transition: .3s;
+        }
+
+        .container button :hover
+        {
+            cursor: pointer;
+            width: 75px;
+            height: 88px;
+            transform: translate(-6%, -6%);
+            -ms-transform: translate(-6%, -6%);
+        }
+
+        .container button p
+        {
+            pointer-events: none;
+            color: white;
+            margin-top: -5%;
+        }
+
+        .cancelbutton button
+        {
+            position: absolute;
+            top: 80%;
+            left: 90%;
+            padding-top: .5%;
+            padding-bottom: .5%;
+            padding-left: 1%;
+            padding-right: 1%;
+            font-size: large;
+            border-radius: 20%;
+            background-color: rgb(255, 64, 64);
+            color: white;
+        }
+        .okButton button {
+            position: absolute;
+            top: 80%;
+            left: 76%;
+            padding-top: .5%;
+            padding-bottom: .5%;
+            padding-left: 1%;
+            padding-right: 1%;
+            font-size: large;
+            border-radius: 20%;
+            background-color: rgb(35, 201, 10);
+            color: white;
+        }
+        .FirstPlayerClicked
+        {
+            border-radius: 60%;
+            position: absolute;
+            top: 87%;
+            left: 74%;
+            width: 10%;
+            height: 7%;
+            background-color: rgb(42, 175, 252);
+            color: white;
+            text-align: center;
+            background-color: #1C2D91A6;
+        }
+
+        .FirstPlayerClicked p
+        {
+            padding-top: 2%;
+            margin: 8%;
+        }
+
+        .icon
+        {
+            position: absolute;
+            top: 89%;
+            left: 85%;
+            font-size: x-large;
+        }
+        .SecondPlayerClicked
+        {
+            border-radius: 60%;
+            position: absolute;
+            top: 87%;
+            left: 88%;
+            width: 10%;
+            height: 7%;
+            background-color: #1C2D91A6;
+            color: white;
+            text-align: center;
+        }
+
+        .SecondPlayerClicked p
+        {
+            padding-top: 2%;
+            margin: 8%;
+        }
+
+        table
+        {
+            position: absolute;
+            left: 50%;
+            top: 15%;
+            font-size: large;
+            width: 30%;
+            height: 30%;
+            border-collapse: collapse;
+            font-family: arial, sans-serif;
+        }
+
+        .user-tablestyle {
+            border-collapse: collapse;
+            width: 550px;
+            font-size: 1em;
+            font-family: sans-serif;
+            min-width: 450px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+        }
+        .user-theadstyle{
+            border: solid black;
+            background-color:#030051;
+            color: #ffffff;
+            text-align: left;
+        }
+        .user-trstyle{
+            border : solid white;
+            background-color:gray;
+        }
+        .user-thstyle,
+        .user-trstyle {
+            text-align: center;
+            padding: 15px 19px;
+        }
+        select {
+            position: absolute;
+            top: 88%;
+            left: 50%;
+            padding-top: .5%;
+            padding-bottom: .5%;
+            padding-left: 1%;
+            padding-right: 1%;
+            font-size: large;
+            border-radius: 20%;
+            background-color: #959b94a1 ;
+            color: black;
+        }
+        option :hover {
+            color : green;
+        }
+    </style>
+
+</head>
+
+<body style="background-color: rgb(17, 66, 47);" onload="getBackUpPlayers(),getMainPlayers(),addshirtsToSelect()">
+
+<div class="nav">
+    <h1>Football Fantasy</h1>
+    <ul>
+        <li><a href="http://localhost:3001/contactUs">Contact Us</a></li>
+        <li><a href="http://localhost:3001/store">Store</a></li>
+        <li><a href="https://www.skysports.com/football/news">News</a></li>
+        <li><a href="http://localhost:3001/dashbord">Profile</a></li>
+    </ul>
+</div>
+
+<div class="FirstPlayerClicked">
+    <p id="FirstPclicked"></p>
+</div>
+
+<div class="icon">🔁</div>
+
+<div class="SecondPlayerClicked">
+    <p id="SecondPclicked"></p>
+</div>
+
+<h1 style="color:white;">formation</h1>
+<div id="backUpPlayersTable"></div>
+<div class="container">
+    <button id="GK" onclick="boxes('1'),clicked('igk')"><img id="igk" src="https://s28.picofile.com/file/8465816876/GoalKeeperT_Shirt.png" alt="GK"><span id="Cp1" style="display:none;"></span><p id = "p1">gfgfs</p></button>
+    <button id="CB1" onclick="boxes('2'),clicked('icb1')"><img id="icb1" src="https://s29.picofile.com/file/8465816826/playerT_Shirt.png" alt="CB1"><span id="Cp2" style="display:none;"></span><p id = "p2">wddwd</p></button>
+    <button id="CB2" onclick="boxes('3'),clicked('icb2')"><img id="icb2" src="https://s29.picofile.com/file/8465816826/playerT_Shirt.png" alt="CB1"><span id="Cp3" style="display:none;"></span><p id = "p3">asafdhgh</p></button>
+    <button id="LB" onclick="boxes('4'),clicked('ilb')"><img id="ilb" src="https://s29.picofile.com/file/8465816826/playerT_Shirt.png" alt="LB"><span id="Cp4" style="display:none;"></span><p id = "p4">player4</p></button>
+    <button id="RB" onclick="boxes('5'),clicked('irb')"><img id="irb" src="https://s29.picofile.com/file/8465816826/playerT_Shirt.png" alt="RB"><span id="Cp5" style="display:none;"></span><p id = "p5">player5</p></button>
+    <button id="CM" onclick="boxes('6'),clicked('icm')"><img id="icm" src="https://s29.picofile.com/file/8465816826/playerT_Shirt.png" alt="CM"><span id="Cp6" style="display:none;"></span><p id = "p6">player6</p></button>
+    <button id="LM" onclick="boxes('7'),clicked('ilm')"><img id="ilm" src="https://s29.picofile.com/file/8465816826/playerT_Shirt.png" alt="LB"><span id="Cp7" style="display:none;"></span><p id = "p7">player7</p></button>
+    <button id="RM" onclick="boxes('8'),clicked('irm')"><img id="irm" src="https://s29.picofile.com/file/8465816826/playerT_Shirt.png" alt="RM"><span id="Cp8" style="display:none;"></span><p id = "p8">player8</p></button>
+    <button id="RW" onclick="boxes('9'),clicked('irw')"><img id="irw" src="https://s29.picofile.com/file/8465816826/playerT_Shirt.png" alt="RW"><span id="Cp9" style="display:none;"></span><p id = "p9">player9</p></button>
+    <button id="LW" onclick="boxes('10'),clicked('ilw')"><img id="ilw" src="https://s29.picofile.com/file/8465816826/playerT_Shirt.png" alt="LW"><span id="Cp10" style="display:none;"></span><p id = "p10">player10</p></button>
+    <button id="CW" onfocus="boxes('11'),clicked('icw')"><img id="icw" src="https://s29.picofile.com/file/8465816826/playerT_Shirt.png" alt="CW"><span id="Cp11" style="display:none;"></span><p id = "p11">player11</p></button>
+
+    <img src="https://s28.picofile.com/file/8465815518/field.jpg" alt="field" style="width:130%">
+
+</div>
+<select id="Shirts" >
+    <option value="0">Free shirt1</option>
+    <option value="1">Free shirt2</option>
+    <option value="2">Free shirt3</option>
+    <option value="3">Free shirt4</option>
+    <option value="4" id="Man-United" style="display: none;">Man-United Shirt</option>
+    <option value="5" id="Barcelona" style="display: none;">Barcelona Shirt</option>
+    <option value="6" id="Man-City" style="display: none;">Man-City Shirt</option>
+    <option value="7" id="more">more...</option>
+</select>
+<div class="okButton"> <button onclick="sendSubstitution()">Change</button></div>
+<div class="cancelbutton">
+    <button id="cancel" onclick="cancelSubstitution()">cancel</button>
+</div>
+</body>
+<script>
+    function getCookie(cname) {
+        let name = cname + "=";
+        let ca = document.cookie.split(';');
+        for(let i = 0; i < ca.length; i++) {
+            let c = ca[i];
+            while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0)
+            {
+                return c.substring(name.length, c.length);
+            }
+        }
+        return "";
+    }
+    function getCookie(cname) {
+        let name = cname + "=";
+        let ca = document.cookie.split(';');
+        for(let i = 0; i < ca.length; i++) {
+            let c = ca[i];
+            while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0)
+            {
+                return c.substring(name.length, c.length);
+            }
+        }
+        return "";
+    }
+    function addshirtsToSelect(){
+        let shirt = 0;
+        if(getCookie('shirt1')!=''){
+            shirt++;
+            document.getElementById("Man-United").style.display= "inline";
+        }
+        if(getCookie('shirt2')!=''){
+            shirt++;
+            document.getElementById("Barcelona").style.display= "inline";
+        }
+        if(getCookie('shirt3')!=''){
+            shirt++;
+            document.getElementById("Man-City").style.display= "inline";
+        }
+        if(shirt == 3){
+            document.getElementById("more").style.display= "none";
+        }
+
+    }
+    const players = ["igk" , "icb1" , "icb2" , "ilb" , "irb" , "icm" , "ilm" , "irm" , "irw" , "ilw" , "icw" ];
+    const selectElement = document.getElementById("Shirts");
+    selectElement.addEventListener("change", function() {
+        const selectedValue = selectElement.value;
+        myFunction(selectedValue);
+    });
+    function myFunction(selectedValue) {
+        if(selectedValue == '0'){
+            setclothes(0);
+        }
+        if(selectedValue == '1'){
+            setclothes(1);
+        }
+        if(selectedValue == '2'){
+            setclothes(2);
+        }
+        if(selectedValue == '3'){
+            setclothes(3);
+        }
+        if(selectedValue == '4'){
+            setclothes(4);
+        }
+        if(selectedValue == '5'){
+            setclothes(5);
+        }
+        if(selectedValue == '6'){
+            setclothes(6);
+        }
+        if(selectedValue=='7'){
+            window.location.href = "http://localhost:3001/store";
+        }
+    }
+    function setclothes(number){
+        if(number == '0'){
+            for(let i = 1; i<11 ; i++ ){
+                let id = players[i];
+                document.getElementById(id).src = "https://s29.picofile.com/file/8465816826/playerT_Shirt.png";
+            }
+        }
+        if(number == '1'){
+            for(let i = 1; i<11 ; i++ ){
+                let id = players[i];
+                document.getElementById(id).src = "https://s29.picofile.com/file/8466218584/freeShirt3.png";
+            }
+        }
+        if(number == '2'){
+            for(let i = 1 ; i < 11 ;i++){
+                let id = players[i];
+                document.getElementById(id).src = "https://s29.picofile.com/file/8466220284/freeShirt1.png";
+            }
+        }
+        if(number == '3'){
+            for(let i = 1 ; i < 11 ;i++){
+                let id = players[i];
+                document.getElementById(id).src = "https://s29.picofile.com/file/8466218576/freeShirt2.png";
+            }
+        }
+        if(number == '4'){
+            for(let i = 1 ; i < 11 ;i++){
+                let id = players[i];
+                document.getElementById(id).src = "https://s28.picofile.com/file/8466220226/silverShirt1.png";
+            }
+        }
+        if(number == '5'){
+            for(let i = 1 ; i < 11 ;i++){
+                let id = players[i];
+                document.getElementById(id).src = "https://s29.picofile.com/file/8466220250/goldShirt2.png";
+            }
+        }
+        if(number == '6'){
+            for(let i = 1 ; i < 11 ;i++){
+                let id = players[i];
+                document.getElementById(id).src = "https://s29.picofile.com/file/8466220268/dimondShirt3.png";
+            }
+        }
+    }
+    let playerSelected = false;
+    let backUpFirstName ="" , backUpLastName = "" ;
+    let mainId = 0;
+    //const  p = [ "p1" , "p2" , "p3" , "p4" ,"p5" , "p6" ,"p7" , "p8","p9" , "p10" , "p11"];
+    //const playersId = ["idPlayer1" , "idPlayer2", "idPlayer3" , "idPlayer4" , "idPlayer5" , "idPlayer6" ,"idPlayer7" , "idPlayer8","idPlayer9" , "idPlayer10" , "idPlayer11"];
+    function boxes(name)
+    {
+        let playerId = "Cp" + name;
+        let id = 'p' + name ;
+        mainId = parseInt(document.getElementById(playerId).innerHTML);
+        console.log(mainId);
+        const value = document.getElementById(id).innerHTML;
+        document.getElementById("FirstPclicked").innerHTML= value;
+        firstPclicked=true;
+    }
+
+    function cancelSubstitution()
+    {
+        deleteColors();
+        document.getElementById("SecondPclicked").innerHTML="";
+        document.getElementById("FirstPclicked").innerHTML="";
+        let Imgs = document.getElementsByTagName("img");
+        let Buttons = document.getElementsByTagName("button");
+        whichplayer="player1";
+        secondPclicked = false;
+        firstPclicked=false;
+
+        for (var i=0;i<Imgs.length-1;i++)
+        {
+            Imgs[i].style.width="60px";
+            Imgs[i].style.height="72px";
+        }
+
+    }
+    function getMainPlayers(){
+        const jwt = getCookie("Football-Fantasy");
+        const baseUrl = "http://localhost:3001/user/getMainPlayersOfUser";
+        const queryParams= 'token=' + jwt ;
+        const url = baseUrl + '?' + queryParams;
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                for(let i=0 ; i<11 ;i++){
+                    const players = Object.values(data[i]);
+                    const player = players[3];
+                    const playerKey = players[2];
+                    const place = players[4];
+                    let playerId = "C" + place ;
+                    console.log(i + " " + playerId);
+                    console.log(player + ":" + playerKey);
+                    document.getElementById(playerId).innerHTML = playerKey;
+                    document.getElementById(place).innerHTML = player;
+                }
+            });
+        cancelSubstitution();
+    }
+    function getBackUpPlayers(){
+        const jwt = getCookie("Football-Fantasy");
+        const baseUrl = "http://localhost:3001/user/getBackUpPlayersOfUser";
+        const queryParams= 'token=' + jwt ;
+        const url = baseUrl + '?' + queryParams;
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                setBackUpPlayerTable(data);
+            });
+    }
+    function setBackUpPlayerTable(data){
+        document.getElementById("backUpPlayersTable").innerHTML="";
+        const table = document.createElement('table');
+        table.classList.add('user-tablestyle');
+
+        const thead = document.createElement('thead');
+        thead.classList.add('user-theadstyle');
+
+        const headerRow = document.createElement('tr');
+        for (let key in data[0]) {
+            const th = document.createElement('th');
+            th.textContent = key;
+            th.classList.add('user-thstyle');
+            headerRow.appendChild(th);
+        }
+        thead.appendChild(headerRow);
+        table.appendChild(thead);
+        const tbody = document.createElement('tbody');
+        data.forEach(item => {
+            const row = document.createElement('tr');
+            row.classList.add('user-trstyle')
+            for (let key in item) {
+                const cell = document.createElement('td');
+                cell.textContent = item[key];
+                row.appendChild(cell);
+            }
+            tbody.appendChild(row);
+        });
+        table.appendChild(tbody);
+        document.getElementById('backUpPlayersTable').appendChild(table);
+        setTableProperties();
+    }
+    function clicked(id)
+    {
+        if(playerSelected==true){
+            document.getElementById(prev).style.width="60px";
+            document.getElementById(prev).style.height="72px";
+        }
+        document.getElementById(id).style.width="40px";
+        document.getElementById(id).style.height="50px";
+        prev=id;
+        playerSelected=true;
+    }
+    function getCookie(cname)
+    {
+        let name = cname + "=";
+        let ca = document.cookie.split(';');
+        for(let i = 0; i < ca.length; i++) {
+            let c = ca[i];
+            while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0)
+            {
+                return c.substring(name.length, c.length);
+            }
+        }
+        return "";
+    }
+    function setTableProperties(){
+        let id = 0 ;
+        const table = document.getElementById('table-container');
+        const rows = document.getElementsByTagName("tr");
+        for (var i = 0; i < rows.length; i++) {
+            rows[i].setAttribute("id" , id );
+            let test = rows[i].id;
+            rows[i].onclick = function(){
+                selectRow(test);
+            }
+            id++;
+        }
+    }
+    function selectRow(rowId){
+        const rows = document.getElementsByTagName("tr");
+        var row = document.getElementById(rowId);
+        if(rowId !=0 ){
+            row.classList.toggle("selected");
+        }
+        for(var i = 1 ; i < rows.length ; i++){
+            if(rows[i].id==rowId){
+                var cell = document.getElementsByTagName("td");
+                backUpFirstName = cell[(i-1)*4].innerHTML;
+                console.log(backUpFirstName);
+                const lastName = cell[((i-1)*4)+1].innerHTML;
+                backUpLastName = lastName;
+                console.log(backUpLastName);
+                document.getElementById("SecondPclicked").innerHTML = lastName;
+            }
+            else{
+                const newRow = document.getElementById(rows[i].id);
+                newRow.classList.remove("selected");
+            }
+
+        }
+    }
+    function sendSubstitution()
+    {
+        const jwt = getCookie("Football-Fantasy");
+        const baseUrl = "http://localhost:3001/user/substitution";
+        const queryParams= "token=" + jwt + "&idMain=" + mainId + "&backUpFirstName=" + backUpFirstName + "&backUpLastName=" + backUpLastName ;
+        const url = baseUrl + '?' + queryParams;
+        fetch(url, {
+            method: "POST",
+            headers: {
+                'Accept': "application/json , text/plain , */*",
+                'Content-Type': "application/json", 'charset':"UTF-8",
+            },
+        })
+            .then(response => response.json())
+            .then(data => {
+                const res = data[0].message;
+                console.log(res);
+                getBackUpPlayers();
+                getMainPlayers();
+            });
+    }
+    function deleteColors(){
+        const rows = document.getElementsByTagName("tr");
+        for(let i = 0 ; i < rows .length ; i++){
+            rows[i].classList.remove("selected");
+        }
+    }
+</script>
+</html>
+      
